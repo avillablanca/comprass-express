@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # El Broker de Mensajería (RabbitMQ)
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: m_inventario_mq
+    ports:
+      - "5672:5672"      # Puerto de comunicación de datos AMQP (el que usa Spring Boot)
+      - "15672:15672"    # Puerto del panel de administración Web
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - network-ejercicio
+
+networks:
+  network-ejercicio:
+    driver: bridge
